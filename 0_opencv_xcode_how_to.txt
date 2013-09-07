@@ -1,0 +1,62 @@
+1. New  -> New Project -> Command Line Tool
+
+
+2. Name it and select C++
+
+
+3. 
+    Click on your project from the left menu. 
+    Click the "build settings" tab from the top. 
+    Filter all. 
+    Scroll to “Search Paths”. Under header search paths, for debug and release, set the path to /usr/local/include
+    ( is /opt/local/include in our case )
+
+
+4. 
+    Click on your project from the left menu. File->New->New Group
+    Name the group OpenCV Frameworks. 
+
+    Select the folder (group) you just labeled, “OpenCV Frameworks” in the left menu. Go to File -> add Files
+    ( this means, go to File->add Files to "Hi" )
+    
+    Select the Right Folder to add the dylibs
+    Type “/”, which will allow you to manually go to a folder. Go to -> /usr/local/lib
+    
+    Select both of these files, libopencv_core.dylib, libopencv_highgui.dylib, and click “Add”. (you may need to add other library files from this folder to run other code.)
+    
+5.   
+    You must include this line of code in the beginning of your main.cpp file:
+
+
+#include <opencv2/opencv.hpp>.
+TEST CODE
+Copy this code into your main.cpp file. It should open up a small window that is half shaded. (There may be some formatting errors in copy pasting this code into Xcode, but it should be easy to clean up.)
+
+#include <iostream>
+#include <opencv2/opencv.hpp>
+
+int main(int argc, char *argv[])
+{
+
+    // Open the file.
+    IplImage *img = cvCreateImage( cvSize(100,200), IPL_DEPTH_8U, 3); 
+
+    //if (!img) {
+    //    printf("Error: Couldn't open the image file.\n");
+    //    return 1;
+    //}
+                                        
+    // Display the image.
+    cvNamedWindow("Image:", CV_WINDOW_AUTOSIZE);
+    cvShowImage("Image:", img);
+    
+    // Wait for the user to press a key in the GUI window.
+    cvWaitKey(0);
+
+    // Free the resources.
+    cvDestroyWindow("Image:");
+    cvReleaseImage(&img);
+                                                                                
+    return 0;
+
+}
